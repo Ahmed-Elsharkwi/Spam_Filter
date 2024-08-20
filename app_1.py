@@ -77,7 +77,7 @@ def authorize():
                         "photo_url": resp["picture"]})
             user_id = user_object.id
 
-        token = create_jwt({"data_1": user_id, 'exp': datetime.utcnow() + timedelta(seconds=300)})
+        token = create_jwt({"data_1": user_id, 'exp': datetime.utcnow() + timedelta(seconds=1200)})
 
         if 'next_page' in session:
             next_page = session['next_page']

@@ -25,6 +25,7 @@ def insert_data(class_name, data):
             print(e)
     return new_object
 
+
 def get_data_with_email(user_id = "", email=""):
     """ 
     it will check if that email exists in the emails table
@@ -45,19 +46,20 @@ def get_data_with_email(user_id = "", email=""):
                 if len(content) != 0:
                     email_data = data
         except SQLAlchemyError as e:
-            print(e)
+            return e
     return email_data
 
 
 def get_emails_data():
     """ get the whole data of all emails from the email table"""
-    data_dict = {"email_address": [], "ip": [], "created_date": []}
+    data_dict = None
     try:
         data = session.query(Email).all()
-        for item in data:
-            data_dict["email_address"].append(item.email_address)
-            data_dict["ip"].append(item.ip_address)
-            data_dict["created_date"].append(item.created_on)
+        if len(data) != 0:
+            data_dict = {}
+            for item in data:
+                data_dict[item.email_address] = {"email_id": item.id}
+
     except SQLAlchemyError as e:
         data_dict = None
     return data_dict

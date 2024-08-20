@@ -23,15 +23,13 @@ app.register_blueprint(app_views)
 @app.route("/spam_filter/check", strict_slashes=False, methods=['GET'])
 def filter_content():
     """ filter the content and decide if the email is spam or ham """
-    #headers = request.headers["Cookie"]
-    #print(headers)
     print(request.cookies)
     jwt_token = request.cookies.get('token')
     data = None
-    print(jwt_token)
+
     if jwt_token is not None:
         data = verify_jwt(jwt_token)
-    print(data)
+
     if jwt_token is None or data is None:
         return jsonify({'state': 'not authenticated'}), 401
 
@@ -57,6 +55,7 @@ def filter_content():
     else:
         return jsonify({"state": "please fill all fields"})
 
+
 @app.route("/spam_filter/add_email", strict_slashes=False, methods=['POST'])
 def add_email():
     """ add email in case the user doesn't expect to get emails from this email address"""
@@ -77,10 +76,12 @@ def retieve_data():
     print(headers)
     return jsonify({"states": "okay"})
 
+
 @app.teardown_appcontext
 def teardown(exc):
     """ hanle teardown_qppcontext """
     close_session()
+
 
 @app.errorhandler(404)
 def not_found(error):

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #00a3ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .my_box {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            top: -15%;
+        }
+
+        #myButton {
+            position: absolute;
+            top: 18px;
+            right: 27px;
+            width: 121px;
+            height: 43px;
+            border-radius: 10px;
+            background-color: #04AA6D;
+            border: none;
+            font-size: 20px;
+        }
+
+        #myText {
+            font-size: 5em;  /* adjust as needed */
+            font-weight: bold;
+        }
+
+        #myImage {
+            width: 40%;  /* adjust as needed */
+            border-radius: 50%;
+        }
+
+        @media (max-width: 600px) {
+            .my_box {
+                flex-direction: column;
+            }
+
+            #myText {
+                font-size: 2em;  /* adjust as needed */
+            }
+
+            #myImage {
+                width: 70%;  /* adjust as needed */
+            }
+        }
+    #pag {
+        font-size: 35px;
+    }
+    .total{
+        width:50%
+    }
+    #myButton:hover {
+        background-color: #c50021;
+    }
+    </style>
+</head>
+<body>
+    <button id="myButton" onclick="loadspam_filter_page()">Start</button>
+    <div class="my_box">
+        <div class="total">
+            <p id="myText">Spam Filter</p>
+            <p id="pag"> The spam filter is a tool which you can use to filter all of your incoming emails.</p>
+        </div>
+        <img id="myImage" src="{{ img_source }}" alt="Your Image">
+    </div>
+    <script>
+
+    function loadspam_filter_page() {
+            window.location.href = "http://localhost:8000/spam_filter";
+    }
+   </script>
+
+
+    
+</body>
+</html>

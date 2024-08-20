@@ -7,10 +7,8 @@ from sqlalchemy import update
 from sqlalchemy.orm import sessionmaker, Session
 from backend_code.database.database_table import engine, Email, User, User_Email
 from sqlalchemy.exc import SQLAlchemyError
+from backend_code.database.data_operations import session
 
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 classes_list = {'User': User, 'Email': Email, 'User_Email': User_Email}
 
@@ -21,8 +19,7 @@ def get_user_email_data(user_id):
     if type(user_id) is str:
         try:
             emails_ids = []
-            data = session.query(User_Email).filter_by(user_id=user_id).all()
-
+            data = session.query(User_Email).filter(User_Email.user_id==user_id).all()
             if len(data) != 0:
 
                 for item in data:
@@ -59,10 +56,11 @@ def update_user_email_data(user_id, old_email_id, new_email_id):
 
 def delete_user_email_data(user_id, email_id):
     """ delete the user and the email using the user_id and the email id"""
-    if type(user_id) is str and type(old_email_id) is str:
+    if type(user_id) is str and type(email_id) is str:
         try:
             result = session.query(User_Email).filter_by(
                 user_id=user_id, email_id=email_id).delete()
+
             if result == 0:
                 return None
 

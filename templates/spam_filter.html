@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style_cheet.css') }}">
+<title> Spam Filter </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    #popupWindow {
+        width: 25vw;
+        height: 25vh;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: gray;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+    #popupWindow.show {
+        opacity: 1;
+    }
+    button {
+        margin-top: 10px;
+    }
+    #Yes{
+        position: relative;
+        left: -4px;
+    }
+    
+</style>
+</head>
+<body>
+<form>
+    <div class="container">
+        <label for="email">Email Address</label>
+        <input type="text" id="email" name="email" placeholder="Email Address">
+
+        <label for="content">Content</label>
+        <textarea id="content" name="subject" placeholder="content of the email" style="height: 390px;"></textarea>
+
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+<div id="popupWindow">
+    <p id="displayText">Do expect to get email from </p>
+    <div>
+        <button id="Yes" onclick="handleClick_yes('Yes')" style="margin-bottom: 20px;">Yes</button>
+        <button id="No" onclick="handleClick_No('No')">No</button>
+    </div>
+</div>
+
+<script>
+    
+    $(document).ready(function() {
+        $('input[type="submit"]').click(function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+            var email = document.getElementById('email').value;
+	    var encoded_email = btoa(email);
+            var content = btoa(document.getElementById('content').value);
+	    let url = `http://localhost:5000/spam_filter/check?content=${content}&email=${encoded_email}`; // Replace with your actual API endpoint
+	   
+
+	    fetch(url
+		,{
+			method: 'GET',
+			credentials: 'include',
+		})
+		.then(response => response.json())
+		.then(data => {
+				console.log(data)
+			
+				if (data.state == 'not authenticated'){
+					window.location.href = "http://localhost:8000/login?next_page=/spam_filter";
+				}
+			
+				if (data.state == "Not spam Email"){
+					let displayText = document.getElementById('displayText');
+					displayText.innerHTML = "Do expect to get email from " + email + " ?";
+					document.getElementById('popupWindow').classList.add('show');
+				}
+				if (data.state != "Not spam Email" && data.state !="not authenticated"){
+					alert(data.state)
+				}
+				console.log(data.spam, data.ham)
+		})
+		.catch((error) => console.error('Error:', error));
+      });
+      
+    });
+
+    function handleClick_yes(answer){
+        document.getElementById('popupWindow').classList.remove('show');
+            setTimeout(function() {
+                alert("Not Spam Email")
+            }, 500); // Delay the alert by 0.5 seconds
+    }
+    function handleClick_No(answer) {
+        document.getElementById('popupWindow').classList.remove('show');
+            setTimeout(function() {
+                alert("Spam Email")
+            }, 1000);
+        email = document.getElementById('email').value;
+        let url = 'http://localhost:5000/spam_filter/add_email'; // Replace with your actual API endpoint
+        let data = {"email": email}; // Replace with your actual data
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => data)
+            .catch((error) => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>

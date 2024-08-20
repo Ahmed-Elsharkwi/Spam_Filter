@@ -36,6 +36,7 @@ class User(Base):
     id = Column(String(60), primary_key=True, index=True)
     name = Column(String(60), nullable=False)
     email_address = Column(String(225), nullable=False, unique=True)
+    photo_url = Column(String(255), nullable=False)
     created_on = Column(DateTime(), default=datetime.now)
     relationship('User_Email', cascade='all, delete-orphan', backref='user')
 

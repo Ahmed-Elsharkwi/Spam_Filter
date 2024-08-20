@@ -7,7 +7,6 @@ import json
 from backend_code.database.data_operations import insert_data, get_data_with_email
 
 
-
 symbols = [']', '[', '?', '!', ',', ':', '.', '@', '#', '$', '%', '^', '&', '(', ')', '-', '+', '*', '/', '~']
 def delete(content):
     """ delete all the spaces and symbols from the content """
@@ -29,8 +28,8 @@ def words_filter(content="", email=""):
     the bigger percentage
     """
     spam_words = []
-    with open("prob.json", mode="r", encoding="utf-8") as file:
-        info = json.loads(file)
+    with open("backend_code/prob.json", mode="r", encoding="utf-8") as file:
+        info = json.load(file)
         for spam_word in info:
             if spam_word != "spam_emails_percentage" and spam_word != "ham_emails_percentage":
                 spam_words.append(spam_word)
