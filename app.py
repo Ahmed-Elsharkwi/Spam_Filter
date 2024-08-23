@@ -76,12 +76,10 @@ def retieve_data():
     print(headers)
     return jsonify({"states": "okay"})
 
-
 @app.teardown_appcontext
 def teardown(exc):
     """ hanle teardown_qppcontext """
     close_session()
-
 
 @app.errorhandler(404)
 def not_found(error):

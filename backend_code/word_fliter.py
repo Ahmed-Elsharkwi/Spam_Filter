@@ -35,8 +35,8 @@ def words_filter(content="", email=""):
                 spam_words.append(spam_word)
 
     content = delete(content)
-    percentage_ham = float(info["spam_emails_percentage"])
-    percentage_spam = float(info["ham_emails_percentage"])
+    percentage_ham = float(info["ham_emails_percentage"])
+    percentage_spam = float(info["spam_emails_percentage"])
     result = ""
     
     for word in content:

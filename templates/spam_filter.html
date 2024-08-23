@@ -32,7 +32,23 @@
         position: relative;
         left: -4px;
     }
-    
+    /* New CSS for the button */
+    #profileButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    margin: 15px;
+   }
+    #profileButton:hover {
+        background-color: black;
+    }
 </style>
 </head>
 <body>
@@ -56,70 +72,72 @@
     </div>
 </div>
 
+<!-- New button added -->
+<button id="profileButton" onclick="handle_profile()">Profile Page</button>
+
 <script>
-    
     $(document).ready(function() {
         $('input[type="submit"]').click(function(e) {
             e.preventDefault(); // Prevent the form from submitting normally
             var email = document.getElementById('email').value;
-	    var encoded_email = btoa(email);
+            var encoded_email = btoa(email);
             var content = btoa(document.getElementById('content').value);
-	    let url = `http://localhost:5000/spam_filter/check?content=${content}&email=${encoded_email}`; // Replace with your actual API endpoint
-	   
-
-	    fetch(url
-		,{
-			method: 'GET',
-			credentials: 'include',
-		})
-		.then(response => response.json())
-		.then(data => {
-				console.log(data)
-			
-				if (data.state == 'not authenticated'){
-					window.location.href = "http://localhost:8000/login?next_page=/spam_filter";
-				}
-			
-				if (data.state == "Not spam Email"){
-					let displayText = document.getElementById('displayText');
-					displayText.innerHTML = "Do expect to get email from " + email + " ?";
-					document.getElementById('popupWindow').classList.add('show');
-				}
-				if (data.state != "Not spam Email" && data.state !="not authenticated"){
-					alert(data.state)
-				}
-				console.log(data.spam, data.ham)
-		})
-		.catch((error) => console.error('Error:', error));
-      });
-      
-    });
-
-    function handleClick_yes(answer){
-        document.getElementById('popupWindow').classList.remove('show');
-            setTimeout(function() {
-                alert("Not Spam Email")
-            }, 500); // Delay the alert by 0.5 seconds
-    }
-    function handleClick_No(answer) {
-        document.getElementById('popupWindow').classList.remove('show');
-            setTimeout(function() {
-                alert("Spam Email")
-            }, 1000);
-        email = document.getElementById('email').value;
-        let url = 'http://localhost:5000/spam_filter/add_email'; // Replace with your actual API endpoint
-        let data = {"email": email}; // Replace with your actual data
+            let url = `http://localhost:5000/spam_filter/check?content=${content}&email=${encoded_email}`; // Replace with your actual API endpoint
 
             fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                method: 'GET',
+                credentials: 'include',
             })
             .then(response => response.json())
-            .then(data => data)
+            .then(data => {
+                console.log(data);
+                if (data.state == 'not authenticated') {
+                    window.location.href = "http://localhost:8000/login?next_page=/spam_filter";
+                }
+                if (data.state == "Not spam Email") {
+                    let displayText = document.getElementById('displayText');
+                    displayText.innerHTML = "Do expect to get email from " + email + " ?";
+                    document.getElementById('popupWindow').classList.add('show');
+                }
+                if (data.state != "Not spam Email" && data.state != "not authenticated") {
+                    alert(data.state);
+                }
+                console.log(data.spam, data.ham);
+            })
             .catch((error) => console.error('Error:', error));
+        });
+    });
+
+    function handleClick_yes(answer) {
+        document.getElementById('popupWindow').classList.remove('show');
+        setTimeout(function() {
+            alert("Not Spam Email");
+        }, 500); // Delay the alert by 0.5 seconds
+    }
+
+    function handleClick_No(answer) {
+        document.getElementById('popupWindow').classList.remove('show');
+        setTimeout(function() {
+            alert("Spam Email");
+        }, 1000);
+        email = document.getElementById('email').value;
+        let url = 'http://localhost:5000/spam_filter/new_email'; // Replace with your actual API endpoint
+        let data = {"email_address": email}; // Replace with your actual data
+
+        fetch(url, {
+            method: 'POST',
+	    credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => data)
+        .catch((error) => console.error('Error:', error));
+    }
+    function handle_profile() {
+            window.location.href = "http://localhost:8000/user_profile";
     }
 </script>
 </body>

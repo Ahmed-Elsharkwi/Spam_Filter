@@ -107,14 +107,25 @@ def logout():
 @app.route("/", strict_slashes=False, methods=['GET'])
 def landing_page():
     """ return the landing page"""
+
+    jwt_token = request.cookies.get('token')
+    data = None
+    name = False
+
+    if jwt_token is not None:
+        data = verify_jwt(jwt_token)
+
+    if data is not None:
+        name = True
+
     img_source = "/static/spam.jpg"
-    return render_template("landing_page.html", img_source=img_source)
+    return render_template("landing_page.html", img_source=img_source, name=name)
 
 
 @app.route("/spam_filter", strict_slashes=False, methods=['GET'])
 def reder_filter_page():
     """ reder the main page of spam filter """
-    """
+
     jwt_token = request.cookies.get('token')
     data = None
 
@@ -123,9 +134,30 @@ def reder_filter_page():
 
     if jwt_token is None or data is None:
         session['next'] = '/spam_filter'
-        return redirect(url_for('login'))
-    """
+        res = make_response(redirect(url_for('login')))
+        if jwt_token is not None:
+            res.delete_cookie('token')
+        return res
+
     return render_template("spam_filter.html")
+
+
+@app.route("/user_profile", strict_slashes=False, methods=['GET'])
+def get_user_profile_page():
+    """ render the user profile page """
+
+    jwt_token = request.cookies.get('token')
+    data = None
+
+    if jwt_token is not None:
+        data = verify_jwt(jwt_token)
+
+    if jwt_token is None or data is None:
+        session['next'] = '/user_profile'
+        return redirect(url_for('login'))
+
+    return render_template("profile.html")
+
 
 @app.errorhandler(404)
 def not_found(error):

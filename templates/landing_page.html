@@ -71,7 +71,13 @@
     </style>
 </head>
 <body>
-    <button id="myButton" onclick="loadspam_filter_page()">Start</button>
+    <button id="myButton" onclick="loadspam_filter_page()">
+        {% if name %}
+            Start
+        {% else %}
+            Login
+        {% endif %}
+    </button>
     <div class="my_box">
         <div class="total">
             <p id="myText">Spam Filter</p>
@@ -80,13 +86,10 @@
         <img id="myImage" src="{{ img_source }}" alt="Your Image">
     </div>
     <script>
-
-    function loadspam_filter_page() {
+        function loadspam_filter_page() {
             window.location.href = "http://localhost:8000/spam_filter";
-    }
-   </script>
-
-
-    
+        }
+    </script>
 </body>
 </html>
+

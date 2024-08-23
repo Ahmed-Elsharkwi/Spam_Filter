@@ -1,0 +1,168 @@
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 900px;
+    width: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+#blocked_email {
+    width: 600px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 350px;
+    margin-bottom: 16px;
+    position: relative;
+    left: 287px;
+    resize: vertical;
+}
+#update_email {
+   width: 428px;
+   padding: 14px;
+   margin: 20px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   position: relative;
+   top: 40px;
+}
+
+.sumbit {
+    position: relative;
+    top: 39px;
+    left: 180px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.sumbit:hover {
+    background-color: black;
+}
+.left {
+    margin-left: 20px;
+    margin-top: 100px;
+}
+.right {
+    margin-right: 20px;
+    text-align: center;
+}
+#profile_photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+#profile_photo img {
+    width: 100%;
+    height: auto;
+}
+#Add {
+    position: relative;
+    left: 590px;
+    top: 60px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: -382px;
+}
+#Add:hover {
+    background-color: black;
+}
+#emails-box {
+     width: 600px;
+     height: fit-content;
+     position: relative;
+     top: 530px;
+     right: 227px;
+     padding: 12px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     box-sizing: border-box;
+     margin-top: 8px;
+     margin-bottom: 16px;
+     display: flex;
+     flex-direction: column;
+     align-items: stretch;
+}
+.email-box {
+    width: 100%;
+    height: 33px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+padding: 0 10px;
+}
+#emails-box .icons {
+    display: flex;
+    gap: 10px;
+}
+#emails-box .icons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+#emails-box .icons button:hover {
+    color: red;
+}
+#image {
+    width: 390px;
+    height: 375px;
+    position: relative;
+    margin-top: 500px;
+    right: 265px;
+    border-radius: 30px;
+}
+
+#popupWindow {
+    width: 25vw;
+    height: 25vh;
+    position: relative;
+    left: 100px;
+    top: 31px;
+    transform: translate(106%, -111%);
+    background-color: gray;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+#popupWindow.show {
+ display: block;
+ opacity: 1;
+}
+#prev {
+    position: relative;
+    left: 590px;
+    top: 60px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+#prev {
+    background-color: black;
+}

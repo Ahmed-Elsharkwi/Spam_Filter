@@ -69,6 +69,7 @@ def get_user_emails():
         return jsonify({'state': 'not authenticated'}), 401
 
     user_id = data['data_1']
+    print(user_id)
 
     emails = get_user_email_data(user_id)
 

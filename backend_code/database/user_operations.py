@@ -3,7 +3,6 @@
 module which has all functions of user
 which can be applied to database
 """
-from sqlalchemy.orm import sessionmaker, Session
 from backend_code.database.database_table import engine, Email, User, User_Email
 from sqlalchemy.exc import SQLAlchemyError
 from backend_code.database.data_operations import session

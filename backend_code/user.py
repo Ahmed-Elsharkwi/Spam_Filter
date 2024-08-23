@@ -55,7 +55,7 @@ def get_user_info():
     if user_info is None:
         return jsonify({"state": "user not found"}), 404
 
-    return jsonify({"user_info": user_info}), 200
+    return jsonify({"state": user_info}), 200
 
 
 @app_views.route('/user_not_exist', methods=['DELETE'], strict_slashes=False)
