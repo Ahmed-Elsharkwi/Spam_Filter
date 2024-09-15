@@ -18,8 +18,8 @@
 1- open you terminal.\
 2- clone the repo of the spam filter using this command `git clone https://github.com/Ahmed-Elsharkwi/Spam_Fliter.git `.\
 3- move to the Spam filter directory using `cd Spam Filter`.\
-4- run the app file using this command `python3 app.py`.\
-5- open this link in your browser `http://127.0.0.1:5000`.\
+4- run the app file using this command `python3 html_pages_routes.py` and run `python3 end_ponits_routes.py`.\
+5- open this link in your browser `http://127.0.0.1:5000` and this link also `http://127.0.0.1:8000`.\
 6- type the email address of the email which you recevied.\
 7- type the content of the email which you recevied.\
 8- the backend will recevie your the content of your email and check if the email is spam or not  by filtering the words using `naive bayes algrothime` and filtering the email address by checking if the email address  is in spam emails list or not.\
